@@ -1,0 +1,40 @@
+name: downsviewpark
+recipe: pantheon
+
+env_file:
+  - ./lando.env
+
+services:
+  appserver:
+    xdebug: true
+    php: ./devops/lando/config/php.ini
+    overrides:
+      environment:
+        PHP_IDE_CONFIG: "serverName=appserver"
+  node:
+    type: node
+    build:
+      - cd ${DRUPAL_THEME_FOLDER_LANDO}
+      - npm install --prefix ${DRUPAL_THEME_FOLDER_LANDO}
+    globals:
+      - gulp-cli: latest
+      - gulp: lastest
+
+
+config:
+  framework: drupal
+  site: downsviewpark
+  id: eef00c71-417f-489f-80d6-2e6eba1ba0a1
+  index: false
+  # Disable the VARNISH edge
+  edge: false
+  # Disable the REDIS cache
+  cache: false
+
+tooling:
+  npm:
+    service: node
+  node:
+    service: node
+  gulp:
+    service: node
