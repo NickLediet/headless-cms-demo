@@ -12,5 +12,8 @@ hard-reset: ## Hard restarts the application (THIS IS DESTORY YOUR CURRENT CONTA
 dump-db: ## Dump target service database. Usage: [$ make dump-db service=<service> ]
 	lando db-export --host $(service) ./data/$(service).sql
 
+import-db: ## Import target service database. Usage: [$ make import-db service=<service> ]
+	lando db-import --host $(service) ./data/$(service).*
+
 help: ## Show this help
 	@grep -h '\s##\s' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-20s\033[0m %s\n", $$1, $$2}'

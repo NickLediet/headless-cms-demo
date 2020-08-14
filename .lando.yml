@@ -30,8 +30,20 @@ tooling:
           - h
       stdout:
         description: Dump database to stdout
-
-
+  'db-import <file>':
+    service: :host
+    description: Imports a dump file into a database service
+    cmd: /helpers/sql-import.sh
+    user: root
+    options:
+      host:
+        description: The database service to use
+        default: database
+        alias:
+          - h
+      no-wipe:
+        description: Do not destroy the existing database before an import
+        boolean: true
 # env_file:
 #   - ./lando.env
 
